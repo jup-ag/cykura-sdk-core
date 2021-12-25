@@ -4,4 +4,7 @@ export * from './currency'
 export * from './ether'
 export * from './nativeCurrency'
 export * from './token'
-export * from './weth9'
+export * from './wsol'
+
+/// Not used
+// export * from './weth9'
