@@ -42,7 +42,7 @@ export abstract class BaseCurrency {
   protected constructor(chainId: number, decimals: number, symbol?: string, name?: string) {
     invariant(Number.isSafeInteger(chainId), 'CHAIN_ID')
     // SPL can take decimals upto 9
-    invariant(decimals >= 0 && decimals < 10 && Number.isInteger(decimals), 'DECIMALS')
+    invariant(decimals >= 0 && decimals < 255 && Number.isInteger(decimals), 'DECIMALS')
 
     this.chainId = chainId
     this.decimals = decimals

@@ -473,7 +473,7 @@ var BaseCurrency =
 function BaseCurrency(chainId, decimals, symbol, name) {
   !Number.isSafeInteger(chainId) ? process.env.NODE_ENV !== "production" ? invariant(false, 'CHAIN_ID') : invariant(false) : void 0; // SPL can take decimals upto 9
 
-  !(decimals >= 0 && decimals < 10 && Number.isInteger(decimals)) ? process.env.NODE_ENV !== "production" ? invariant(false, 'DECIMALS') : invariant(false) : void 0;
+  !(decimals >= 0 && decimals < 255 && Number.isInteger(decimals)) ? process.env.NODE_ENV !== "production" ? invariant(false, 'DECIMALS') : invariant(false) : void 0;
   this.chainId = chainId;
   this.decimals = decimals;
   this.symbol = symbol;
