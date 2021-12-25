@@ -699,5 +699,5 @@ function sqrt(value) {
   return z;
 }
 
-export { CurrencyAmount, Ether, Fraction, MaxUint256, NativeCurrency, Percent, Price, Rounding, Token, TradeType, WSOL, computePriceImpact, sortedInsert, sqrt, validateAndParseAddress };
+export { CurrencyAmount, Ether, Fraction, MaxUint256, NativeCurrency, Percent, Price, Rounding, Token, TradeType, WETH9, WSOL, computePriceImpact, sortedInsert, sqrt, validateAndParseAddress };
 //# sourceMappingURL=sdk-core.esm.js.map

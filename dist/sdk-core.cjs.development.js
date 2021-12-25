@@ -709,6 +709,7 @@ exports.NativeCurrency = NativeCurrency;
 exports.Percent = Percent;
 exports.Price = Price;
 exports.Token = Token;
+exports.WETH9 = WETH9;
 exports.WSOL = WSOL;
 exports.computePriceImpact = computePriceImpact;
 exports.sortedInsert = sortedInsert;

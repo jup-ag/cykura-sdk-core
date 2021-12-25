@@ -7,4 +7,4 @@ export * from './token'
 export * from './wsol'
 
 /// Not used
-// export * from './weth9'
+export * from './weth9'
