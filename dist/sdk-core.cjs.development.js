@@ -21,7 +21,7 @@ var toFormat = _interopDefault(require('toformat'));
   Rounding[Rounding["ROUND_UP"] = 2] = "ROUND_UP";
 })(exports.Rounding || (exports.Rounding = {}));
 
-var MaxUint256 = /*#__PURE__*/JSBI.BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff');
+var MaxUint128 = /*#__PURE__*/JSBI.BigInt('0xffffffffffffffffffffffffffffffff');
 
 function _defineProperties(target, props) {
   for (var i = 0; i < props.length; i++) {
@@ -190,7 +190,7 @@ var CurrencyAmount = /*#__PURE__*/function (_Fraction) {
     var _this;
 
     _this = _Fraction.call(this, numerator, denominator) || this;
-    !JSBI.lessThanOrEqual(_this.quotient, MaxUint256) ?  invariant(false, 'AMOUNT')  : void 0;
+    !JSBI.lessThanOrEqual(_this.quotient, MaxUint128) ?  invariant(false, 'AMOUNT')  : void 0;
     _this.currency = currency;
     _this.decimalScale = JSBI.exponentiate(JSBI.BigInt(10), JSBI.BigInt(currency.decimals));
     return _this;
@@ -704,7 +704,7 @@ function sqrt(value) {
 exports.CurrencyAmount = CurrencyAmount;
 exports.Ether = Ether;
 exports.Fraction = Fraction;
-exports.MaxUint256 = MaxUint256;
+exports.MaxUint128 = MaxUint128;
 exports.NativeCurrency = NativeCurrency;
 exports.Percent = Percent;
 exports.Price = Price;

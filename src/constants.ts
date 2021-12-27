@@ -14,4 +14,4 @@ export enum Rounding {
   ROUND_UP
 }
 
-export const MaxUint256 = JSBI.BigInt('0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff')
+export const MaxUint128 = JSBI.BigInt('0xffffffffffffffffffffffffffffffff')

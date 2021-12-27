@@ -9,4 +9,4 @@ export declare enum Rounding {
     ROUND_HALF_UP = 1,
     ROUND_UP = 2
 }
-export declare const MaxUint256: JSBI;
+export declare const MaxUint128: JSBI;
