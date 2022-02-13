@@ -2,6 +2,7 @@ import invariant from 'tiny-invariant'
 import { validateAndParseAddress } from '../utils/validateAndParseAddress'
 import { BaseCurrency } from './baseCurrency'
 import { Currency } from './currency'
+import bs58 from 'bs58'
 
 /**
  * Represents an ERC20 token with a unique address and some metadata.
@@ -37,7 +38,15 @@ export class Token extends BaseCurrency {
   public sortsBefore(other: Token): boolean {
     invariant(this.chainId === other.chainId, 'CHAIN_IDS')
     invariant(this.address !== other.address, 'ADDRESSES')
-    return this.address.toLowerCase() < other.address.toLowerCase()
+    // console.log('HELLO FROM SORRS BEFOER')
+    const bytes0 = Buffer.from(this.address.toString())
+    const address0 = bs58.encode(bytes0)
+    // console.log(address0)
+    const bytes1 = Buffer.from(other.address.toString())
+    const address1 = bs58.encode(bytes1)
+    // console.log(address1)
+    // return this.address.toString() < other.address.toString()
+    return address0.toLowerCase() < address1.toLowerCase()
   }
 
   /**
