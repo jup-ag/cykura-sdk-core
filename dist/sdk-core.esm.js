@@ -3,7 +3,7 @@ import invariant from 'tiny-invariant';
 import _Decimal from 'decimal.js-light';
 import _Big from 'big.js';
 import toFormat from 'toformat';
-import bs58 from 'bs58';
+import { web3, BN } from '@project-serum/anchor';
 
 var TradeType;
 
@@ -554,16 +554,12 @@ var Token = /*#__PURE__*/function (_BaseCurrency) {
 
   _proto.sortsBefore = function sortsBefore(other) {
     !(this.chainId === other.chainId) ? process.env.NODE_ENV !== "production" ? invariant(false, 'CHAIN_IDS') : invariant(false) : void 0;
-    !(this.address !== other.address) ? process.env.NODE_ENV !== "production" ? invariant(false, 'ADDRESSES') : invariant(false) : void 0; // console.log('HELLO FROM SORRS BEFOER')
-
-    var bytes0 = Buffer.from(this.address.toString());
-    var address0 = bs58.encode(bytes0); // console.log(address0)
-
-    var bytes1 = Buffer.from(other.address.toString());
-    var address1 = bs58.encode(bytes1); // console.log(address1)
-    // return this.address.toString() < other.address.toString()
-
-    return address0.toLowerCase() < address1.toLowerCase();
+    !(this.address !== other.address) ? process.env.NODE_ENV !== "production" ? invariant(false, 'ADDRESSES') : invariant(false) : void 0;
+    var add0 = new web3.PublicKey(this.address.toString());
+    var add1 = new web3.PublicKey(other.address.toString());
+    var aNum = new BN(add0.toBuffer());
+    var bNum = new BN(add1.toBuffer());
+    return aNum.lt(bNum);
   }
   /**
    * Return this token, which does not need to be wrapped

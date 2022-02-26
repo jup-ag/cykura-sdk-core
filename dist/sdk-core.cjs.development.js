@@ -9,7 +9,7 @@ var invariant = _interopDefault(require('tiny-invariant'));
 var _Decimal = _interopDefault(require('decimal.js-light'));
 var _Big = _interopDefault(require('big.js'));
 var toFormat = _interopDefault(require('toformat'));
-var bs58 = _interopDefault(require('bs58'));
+var anchor = require('@project-serum/anchor');
 
 (function (TradeType) {
   TradeType[TradeType["EXACT_INPUT"] = 0] = "EXACT_INPUT";
@@ -556,16 +556,12 @@ var Token = /*#__PURE__*/function (_BaseCurrency) {
 
   _proto.sortsBefore = function sortsBefore(other) {
     !(this.chainId === other.chainId) ?  invariant(false, 'CHAIN_IDS')  : void 0;
-    !(this.address !== other.address) ?  invariant(false, 'ADDRESSES')  : void 0; // console.log('HELLO FROM SORRS BEFOER')
-
-    var bytes0 = Buffer.from(this.address.toString());
-    var address0 = bs58.encode(bytes0); // console.log(address0)
-
-    var bytes1 = Buffer.from(other.address.toString());
-    var address1 = bs58.encode(bytes1); // console.log(address1)
-    // return this.address.toString() < other.address.toString()
-
-    return address0.toLowerCase() < address1.toLowerCase();
+    !(this.address !== other.address) ?  invariant(false, 'ADDRESSES')  : void 0;
+    var add0 = new anchor.web3.PublicKey(this.address.toString());
+    var add1 = new anchor.web3.PublicKey(other.address.toString());
+    var aNum = new anchor.BN(add0.toBuffer());
+    var bNum = new anchor.BN(add1.toBuffer());
+    return aNum.lt(bNum);
   }
   /**
    * Return this token, which does not need to be wrapped

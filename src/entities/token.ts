@@ -2,8 +2,7 @@ import invariant from 'tiny-invariant'
 import { validateAndParseAddress } from '../utils/validateAndParseAddress'
 import { BaseCurrency } from './baseCurrency'
 import { Currency } from './currency'
-import bs58 from 'bs58'
-
+import * as anchor from '@project-serum/anchor'
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
@@ -38,15 +37,14 @@ export class Token extends BaseCurrency {
   public sortsBefore(other: Token): boolean {
     invariant(this.chainId === other.chainId, 'CHAIN_IDS')
     invariant(this.address !== other.address, 'ADDRESSES')
-    // console.log('HELLO FROM SORRS BEFOER')
-    const bytes0 = Buffer.from(this.address.toString())
-    const address0 = bs58.encode(bytes0)
-    // console.log(address0)
-    const bytes1 = Buffer.from(other.address.toString())
-    const address1 = bs58.encode(bytes1)
-    // console.log(address1)
-    // return this.address.toString() < other.address.toString()
-    return address0.toLowerCase() < address1.toLowerCase()
+
+    const add0 = new anchor.web3.PublicKey(this.address.toString())
+    const add1 = new anchor.web3.PublicKey(other.address.toString())
+
+    const aNum = new anchor.BN(add0.toBuffer())
+    const bNum = new anchor.BN(add1.toBuffer())
+
+    return aNum.lt(bNum)
   }
 
   /**
