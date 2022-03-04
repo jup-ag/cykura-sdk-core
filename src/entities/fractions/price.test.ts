@@ -1,10 +1,11 @@
+import { web3 } from '@project-serum/anchor'
 import { Token } from '../token'
 import { CurrencyAmount } from './currencyAmount'
 import { Price } from './price'
 
 describe('Price', () => {
-  const ADDRESS_ZERO = '0x0000000000000000000000000000000000000000'
-  const ADDRESS_ONE = '0x0000000000000000000000000000000000000001'
+  const ADDRESS_ZERO = new web3.PublicKey(0)
+  const ADDRESS_ONE = new web3.PublicKey(1)
 
   const t0 = new Token(1, ADDRESS_ZERO, 18)
   const t0_6 = new Token(1, ADDRESS_ZERO, 6)

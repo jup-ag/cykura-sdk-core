@@ -1,5 +1,4 @@
 import JSBI from 'jsbi'
-import { MaxUint256 } from '../constants'
 import { sqrt } from './sqrt'
 
 describe('#sqrt', () => {
@@ -18,9 +17,5 @@ describe('#sqrt', () => {
         expect(sqrt(rootSquared)).toEqual(root)
       })
     }
-  })
-
-  it('correct for MaxUint256', () => {
-    expect(sqrt(MaxUint256)).toEqual(JSBI.BigInt('340282366920938463463374607431768211455'))
   })
 })

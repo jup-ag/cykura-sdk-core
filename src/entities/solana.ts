@@ -9,14 +9,12 @@ import { WSOL } from './wsol'
  */
 export class Solana extends NativeCurrency {
   protected constructor(chainId: number) {
-    const wsol = WSOL[chainId]
-    super(chainId, wsol.decimals, wsol.symbol, wsol.name)
+    super(chainId, WSOL.decimals, WSOL.symbol, WSOL.name)
   }
 
   public get wrapped(): Token {
-    const wsol = WSOL[this.chainId]
-    invariant(!!wsol, 'WRAPPED')
-    return wsol
+    invariant(!!WSOL, 'WRAPPED')
+    return WSOL
   }
 
   private static _solanaCache: { [chainId: number]: Solana } = {}

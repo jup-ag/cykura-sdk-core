@@ -1,7 +1,9 @@
 import invariant from 'tiny-invariant'
+import * as anchor from '@project-serum/anchor'
+import { web3 } from '@project-serum/anchor'
 import { BaseCurrency } from './baseCurrency'
 import { Currency } from './currency'
-import * as anchor from '@project-serum/anchor'
+
 /**
  * Represents an ERC20 token with a unique address and some metadata.
  */
@@ -12,9 +14,9 @@ export class Token extends BaseCurrency {
   /**
    * The contract address on the chain on which this token lives
    */
-  public readonly address: string
+  public readonly address: web3.PublicKey
 
-  public constructor(chainId: number, address: string, decimals: number, symbol?: string, name?: string) {
+  public constructor(chainId: number, address: web3.PublicKey, decimals: number, symbol?: string, name?: string) {
     super(chainId, decimals, symbol, name)
     this.address = address
   }
@@ -37,13 +39,10 @@ export class Token extends BaseCurrency {
     invariant(this.chainId === other.chainId, 'CHAIN_IDS')
     invariant(this.address !== other.address, 'ADDRESSES')
 
-    const add0 = new anchor.web3.PublicKey(this.address.toString())
-    const add1 = new anchor.web3.PublicKey(other.address.toString())
+    const thisKeyAsNumber = new anchor.BN(this.address.toBuffer())
+    const otherKeyAsNumber = new anchor.BN(other.address.toBuffer())
 
-    const aNum = new anchor.BN(add0.toBuffer())
-    const bNum = new anchor.BN(add1.toBuffer())
-
-    return aNum.lt(bNum)
+    return thisKeyAsNumber.lt(otherKeyAsNumber)
   }
 
   /**

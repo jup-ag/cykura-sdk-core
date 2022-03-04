@@ -1,13 +1,16 @@
+import { web3 } from '@project-serum/anchor'
 import { Token } from './token'
+
+export const WSOL = new Token(101, new web3.PublicKey('So11111111111111111111111111111111111111112'), 9, 'wSOL', 'Wrapped SOL')
 
 /**
  * Known WSOL implementation addresses, used in our implementation of Solana#wrapped
  */
-export const WSOL: { [chainId: number]: Token } = {
-  // Mainnet
-  [101]: new Token(101, 'So11111111111111111111111111111111111111112', 9, 'SOL', 'Wrapped SOL'),
-  // Testnet
-  [102]: new Token(102, 'So11111111111111111111111111111111111111112', 9, 'wSOL', 'Wrapped SOL'),
-  // Devnet
-  [103]: new Token(103, 'So11111111111111111111111111111111111111112', 9, 'SOL', 'Wrapped SOL')
-}
+// export const WSOL: { [chainId: number]: Token } = {
+//   // Mainnet
+//   [101]: wSolToken,
+//   // Testnet
+//   [102]: wSolToken,
+//   // Devnet
+//   [103]: wSolToken,
+// }

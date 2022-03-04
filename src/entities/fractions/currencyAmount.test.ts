@@ -1,12 +1,12 @@
+import { web3 } from '@project-serum/anchor'
 import JSBI from 'jsbi'
-import { MaxUint256 } from '../../constants'
-import { Ether } from '../ether'
+import { Solana } from '../solana'
 import { Token } from '../token'
 import { CurrencyAmount } from './currencyAmount'
 import { Percent } from './percent'
 
 describe('CurrencyAmount', () => {
-  const ADDRESS_ONE = '0x0000000000000000000000000000000000000001'
+  const ADDRESS_ONE = new web3.PublicKey(1)
 
   describe('constructor', () => {
     it('works', () => {
@@ -26,37 +26,10 @@ describe('CurrencyAmount', () => {
 
   describe('#ether', () => {
     it('produces ether amount', () => {
-      const amount = CurrencyAmount.fromRawAmount(Ether.onChain(1), 100)
+      const amount = CurrencyAmount.fromRawAmount(Solana.onChain(1), 100)
       expect(amount.quotient).toEqual(JSBI.BigInt(100))
-      expect(amount.currency).toEqual(Ether.onChain(1))
+      expect(amount.currency).toEqual(Solana.onChain(1))
     })
-  })
-
-  it('token amount can be max uint256', () => {
-    const amount = CurrencyAmount.fromRawAmount(new Token(1, ADDRESS_ONE, 18), MaxUint256)
-    expect(amount.quotient).toEqual(MaxUint256)
-  })
-  it('token amount cannot exceed max uint256', () => {
-    expect(() =>
-      CurrencyAmount.fromRawAmount(new Token(1, ADDRESS_ONE, 18), JSBI.add(MaxUint256, JSBI.BigInt(1)))
-    ).toThrow('AMOUNT')
-  })
-  it('token amount quotient cannot exceed max uint256', () => {
-    expect(() =>
-      CurrencyAmount.fromFractionalAmount(
-        new Token(1, ADDRESS_ONE, 18),
-        JSBI.add(JSBI.multiply(MaxUint256, JSBI.BigInt(2)), JSBI.BigInt(2)),
-        JSBI.BigInt(2)
-      )
-    ).toThrow('AMOUNT')
-  })
-  it('token amount numerator can be gt. uint256 if denominator is gt. 1', () => {
-    const amount = CurrencyAmount.fromFractionalAmount(
-      new Token(1, ADDRESS_ONE, 18),
-      JSBI.add(MaxUint256, JSBI.BigInt(2)),
-      2
-    )
-    expect(amount.numerator).toEqual(JSBI.add(JSBI.BigInt(2), MaxUint256))
   })
 
   describe('#toFixed', () => {
