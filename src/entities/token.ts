@@ -26,7 +26,7 @@ export class Token extends BaseCurrency {
    * @param other other token to compare
    */
   public equals(other: Currency): boolean {
-    return other.isToken && this.chainId === other.chainId && this.address === other.address
+    return other.isToken && this.chainId === other.chainId && this.address.equals(other.address)
   }
 
   /**
